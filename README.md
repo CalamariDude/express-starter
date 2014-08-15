@@ -1,4 +1,4 @@
 express-starter
 ===============
 
-A bare bones nodeJs web app using express
+A bare bones Node.js project starter. It uses Express.js, Grunt, Handlebars, and LESS.
