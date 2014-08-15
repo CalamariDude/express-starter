@@ -12,9 +12,13 @@ logs
 results
 node_modules
 npm-debug.log
+.rebooted
 
 # OS generated files
 .DS_Store*
 ehthumbs.db
 Icon?
-Thumbs.db
+Thumbs.dbs
+
+# We are not commiting css files since they get created when the app boots.
+public/css/*
