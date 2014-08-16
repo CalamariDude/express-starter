@@ -4,14 +4,53 @@ var fs = require('fs')
 
 module.exports = function (grunt) {
   grunt.initConfig({
+    // Nodemon tasks.
     nodemon: {
       dev: {
+        script: './bin/www',
         options: {
-          exec: 'npm start',
           env: {
             NODE_ENV: 'development'
           },
-          ignore: ['node_modules/**', 'public/**'],
+          ignore: ['node_modules/**', 'public/**', "Gruntfile.js", ".git/"],
+          ext: 'js,hbs,yml',
+          callback: function (nodemon) {
+            // Refreshes browser when server reboots.
+            nodemon.on('restart', function () {
+              setTimeout(function () {
+                fs.writeFileSync('.rebooted', 'rebooted');
+              }, 1000);
+            });
+          }
+        }
+      },
+      inspect: {
+        script: './bin/www',
+        options: {
+          nodeArgs: ["--debug"],
+          env: {
+            NODE_ENV: 'development'
+          },
+          ignore: ['node_modules/**', 'public/**', "Gruntfile.js", ".git/"],
+          ext: 'js,hbs,yml',
+          callback: function (nodemon) {
+            // Refreshes browser when server reboots.
+            nodemon.on('restart', function () {
+              setTimeout(function () {
+                fs.writeFileSync('.rebooted', 'rebooted');
+              }, 1000);
+            });
+          }
+        }
+      },
+      inspectBreak: {
+        script: './bin/www',
+        options: {
+          nodeArgs: ["--debug-brk"],
+          env: {
+            NODE_ENV: 'development'
+          },
+          ignore: ['node_modules/**', 'public/**', "Gruntfile.js", ".git/"],
           ext: 'js,hbs,yml',
           callback: function (nodemon) {
             // Refreshes browser when server reboots.
@@ -24,6 +63,8 @@ module.exports = function (grunt) {
         }
       }
     },
+
+    // Less compiling and source mapping.
     less: {
       style: {
         files: {
@@ -38,61 +79,51 @@ module.exports = function (grunt) {
         }
       }
     },
+
+    // Setup basic node inspector task.
     'node-inspector': {
-      custom: {
-        options: {
-          'web-port': 8081
-        }
-      }
+      dev: {}
     },
+
+    // Watch for file changes, live reload.
     watch: {
       css: {
         files: ['public/less/*.less'],
         tasks: ['less:style'],
         options: {
-          // livereload: true
+          livereload: true
         }
       },
       public: {
         files: ['public/**'],
         options: {
-          // livereload: true
+          livereload: true
         }
       },
       server: {
         files: ['.rebooted'],
         options: {
-          // livereload: true
+          livereload: true
         }
       }
     },
+
+    // Current Tasks.
     concurrent: {
-      compress: ['less'],
-      start: {
-        tasks: ['nodemon', 'node-inspector', 'watch'],
-        options: {
-          logConcurrentOutput: true
-        }
+      options: {
+        limit: 5,
+        logConcurrentOutput: true
       },
-      // debug: {
-      //   tasks: ['node-inspector']
-      // },
-    },
-    // concurrent: {
-    //   options: {
-    //     limit: 3,
-    //     logConcurrentOutput: true
-    //   },
-    //   dev: {
-    //     tasks: ["nodemon:dev", "compass:watch", "watch"]
-    //   },
-    //   inspect: {
-    //     tasks: ["nodemon:inspect", "compass:watch", "watch"]
-    //   },
-    //   inspectBreak: {
-    //     tasks: ["nodemon:inspectBreak", "compass:watch", "watch"]
-    //   }
-    // }
+      dev: {
+        tasks: ['nodemon:dev', 'less', 'watch']
+      },
+      inspect: {
+        tasks: ['nodemon:inspect', 'node-inspector', 'less', 'watch']
+      },
+      inspectBreak: {
+        tasks: ['nodemon:inspectBreak', 'node-inspector', 'less', 'watch']
+      }
+    }
   });
 
   // Load deps.
@@ -104,30 +135,22 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-node-inspector');
 
   // Register tasks.
-  grunt.registerTask('default', 'concurrent');
-  grunt.registerTask('dev', 'concurrent');
+  grunt.registerTask('default', 'concurrent:dev');
+  grunt.registerTask('dev', 'concurrent:dev');
   grunt.registerTask('prod', 'less');
 
 
-  // grunt.registerTask("debug", function(inspect, breakOnFirstLine){
-  //   var nodemonTask = "dev";
-  //   if (inspect === "inspect") {
+  grunt.registerTask("debug", function(inspect, breakOnFirstLine){
+    var nodemonTask = "dev";
 
-  //     // set nodemon task based on breakOnFirstLine grunt argument
-  //     nodemonTask = breakOnFirstLine === "break" ? "inspectBreak" : "inspect";
+    if (inspect === "inspect") {
+      // set nodemon task based on breakOnFirstLine grunt argument
+      nodemonTask = breakOnFirstLine === "break" ? "inspectBreak" : "inspect";
+    }
+    grunt.task.run('concurrent:'+nodemonTask);
+  });
 
-  //     // spawn node-inspector as a child process
-  //     grunt.util.spawn({
-  //       cmd: "node-inspector"
-  //     });
-
-  //     console.log("Node inspector running at http://localhost:8080/debug?port=5858");
-  //   }
-
-  //   grunt.task.run(["jshint", "concat", "uglify", "imagemin", "cssmin", "handlebars", "concurrent:"+nodemonTask]);
-  // });
-
-  // Check for errors and run a system growl notification.
+  // Check for errors and run a system growl notification like a boss.
   ['warn', 'fatal'].forEach(function (level) {
     grunt.util.hooker.hook(grunt.fail, level, function (opt) {
       growl(opt.name, {
