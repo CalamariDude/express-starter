@@ -1,0 +1,38 @@
+/**
+ * Generic.
+ */
+* {
+  .box-sizing();
+}
+html {
+  font-family: @main_font_stack;
+}
+::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 100;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 100;
+}
+::-moz-placeholder {  /* Firefox 19+ */
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 100;
+}
+:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 100;
+}
+.content {
+  max-width: 500px;
+  margin: 100px auto;
+  text-align: center;
+
+  h1 {
+    font-weight: 300;
+    color: #2A2A2A;
+  }
+  p {
+    color: #909090;
+  }
+}
