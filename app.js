@@ -21,15 +21,16 @@ hbs.registerHelper('stringify', function (data) {
   return JSON.stringify(data);
 });
 
-hbs.registerHelper("debug", function(optionalValue) {
-  console.log("Current Context");
-  console.log("====================");
-  console.log(this);
-
-  if (optionalValue) {
-    console.log("Value");
-    console.log("====================");
+hbs.registerHelper("debug", function(value) {
+  if (value) {
+    console.log("=== Value ===");
     console.log(optionalValue);
+    console.log("=============");
+  }
+  else {
+    console.log("=== Current Context ===");
+    console.log(this);
+    console.log("=======================");
   }
 });
 

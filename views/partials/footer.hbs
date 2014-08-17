@@ -6,11 +6,13 @@
     <!-- Load Config and Scripts -->
     <script>
       // Allow easy access to JSON.stringify()'d data.
-      // {{#each json}}
-      //   define('{{@key}}', function (require) {
-      //     return {{{this}}};
-      //   });
-      // {{/each}}
+      {{debug json}}
+      {{#each json}}
+        console.log('sdjfnvjksnd');
+        define('{{@key}}', function (require) {
+          return {{{this}}};
+        });
+      {{/each}}
 
       // Print conf variables
       define('conf', function(require) {
