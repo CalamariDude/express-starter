@@ -1,0 +1,25 @@
+    <!-- Load Scripts -->
+    {{#each conf.scripts}}
+      <script src="{{path}}" type="text/javascript"></script>
+    {{/each}}
+
+    <!-- Load Config and Scripts -->
+    <script>
+      // Allow easy access to JSON.stringify()'d data.
+      // {{#each json}}
+      //   define('{{@key}}', function (require) {
+      //     return {{{this}}};
+      //   });
+      // {{/each}}
+
+      // Print conf variables
+      define('conf', function(require) {
+        return {{{stringify conf}}};
+      })
+
+      // Load Main Javascript
+      require(['main']);
+
+    </script>
+  </body>
+</html>
