@@ -1,4 +1,5 @@
-var conf = {
+module.exports = {
+  port: 3000,
   title: 'Express Starter',
   description: 'A bare bones Node.js project starter. It uses Express.js, Grunt, Handlebars, and LESS.',
   styles: [
@@ -6,9 +7,6 @@ var conf = {
   ],
   scripts: [
     {'path':'vendor/require.js'},
-    {'path':'js/config.js'}
+    {'path':'js/require.config.js'}
   ]
-}
-module.exports = function(mode) {
-  return conf;
 }

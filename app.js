@@ -6,7 +6,7 @@ var express = require('express')
   , cookieParser = require('cookie-parser')
   , bodyParser = require('body-parser')
   , routes = require('./routes/index')
-  , conf = require('./conf')()
+  , conf = require('./conf/conf')
   ;
 
 var app = express();
