@@ -24,7 +24,7 @@ hbs.registerHelper('stringify', function (data) {
 hbs.registerHelper("debug", function(value) {
   if (value) {
     console.log("=== Value ===");
-    console.log(optionalValue);
+    console.log(value);
     console.log("=============");
   }
   else {
@@ -32,6 +32,10 @@ hbs.registerHelper("debug", function(value) {
     console.log(this);
     console.log("=======================");
   }
+});
+
+hbs.registerHelper('json', function(context) {
+  return JSON.stringify(context);
 });
 
 app.use(favicon());

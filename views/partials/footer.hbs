@@ -5,14 +5,15 @@
 
     <!-- Load Config and Scripts -->
     <script>
-      // Allow easy access to JSON.stringify()'d data.
-      {{debug json}}
-      {{#each json}}
-        console.log('sdjfnvjksnd');
-        define('{{@key}}', function (require) {
-          return {{{this}}};
-        });
-      {{/each}}
+
+      // We can add a json middleware and enable this to
+      // allow easy access to JSON.stringify()'d data for the client-site.
+
+      // {{#each json}}
+      //   define('{{@key}}', function (require) {
+      //     return {{{this}}};
+      //   });
+      // {{/each}}
 
       // Print conf variables
       define('conf', function(require) {
