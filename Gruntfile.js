@@ -136,10 +136,6 @@ module.exports = function (grunt) {
 
   // Register tasks.
   grunt.registerTask('default', 'concurrent:dev');
-  grunt.registerTask('dev', 'concurrent:dev');
-  grunt.registerTask('prod', 'less');
-
-
   grunt.registerTask("debug", function(inspect, breakOnFirstLine){
     var nodemonTask = "dev";
 
@@ -149,6 +145,7 @@ module.exports = function (grunt) {
     }
     grunt.task.run('concurrent:'+nodemonTask);
   });
+  grunt.registerTask('prod', 'less');
 
   // Check for errors and run a system growl notification like a boss.
   ['warn', 'fatal'].forEach(function (level) {
