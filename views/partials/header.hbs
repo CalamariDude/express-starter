@@ -4,16 +4,10 @@
     <title>{{conf.title}}</title>
     <meta name="description" content="{{conf.description}}">
 
-    <!-- Mobile Meta -->
+    <!-- Mobile Meta for responsiveness-->
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
 
-    <!-- IE Meta -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-    <!-- Load modernizer first for features detection. -->
-    <!--<script src="/vendor/modernizr.js"></script> -->
-
-    <!-- Styles -->
+    <!-- Loads in all styles you have listed in conf.js -->
     {{#each conf.styles}}
       <link rel="stylesheet" href="{{path}}" type="text/css">
     {{/each}}

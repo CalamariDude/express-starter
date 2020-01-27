@@ -1,14 +1,10 @@
-var express = require('express')
-  , hbs = require('hbs')
-  , path = require('path')
-  , favicon = require('static-favicon')
-  , logger = require('morgan')
-  , cookieParser = require('cookie-parser')
-  , bodyParser = require('body-parser')
-  , routes = require('./routes/index')
-  , conf = require('./conf/conf')
-  ;
-
+var express = require('express');
+var hbs = require('hbs');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var routes = require('./routes/index');
+var conf = require('./conf/conf');
 var app = express();
 
 // view engine setup
@@ -38,10 +34,7 @@ hbs.registerHelper('json', function(context) {
   return JSON.stringify(context);
 });
 
-app.use(favicon());
-app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 

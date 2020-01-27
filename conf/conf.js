@@ -1,12 +1,12 @@
 module.exports = {
   port: 3000,
-  title: 'Express Starter',
-  description: 'A bare bones Node.js project starter. It uses Express.js, Grunt, Handlebars, and LESS.',
+  description: 'This project uses Express for routing and Handlebars for easy templating!',
   styles: [
     {'path':'/css/style.css'}
   ],
   scripts: [
-    {'path':'vendor/require.js'},
-    {'path':'js/require.config.js'}
+    //Insert any javascript files you added to the /js folder that you want injected into the page
+    //Like so:
+    //{'path': '/js/myfile.js'}
   ]
 }

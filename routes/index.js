@@ -1,7 +1,6 @@
-var express = require('express')
-  , router = express.Router()
-  , conf = require('../conf/conf');
-  ;
+var express = require('express');
+router = express.Router();
+conf = require('../conf/conf');
 
 /* GET home page. */
 router.get('/', function(req, res) {
